@@ -32,3 +32,7 @@ if y_predicted == y_val:
     print (True)
     
 d = pd.read_csv("book2.csv")
+
+prices = reg.predict(d)
+d["Prices"] = prices #create a new column of prices and append the predicted prices into csv
+d.to_csv
