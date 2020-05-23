@@ -35,6 +35,11 @@ dfeval = pd.read_csv('https://storage.googleapis.com/tf-datasets/titanic/eval.cs
 y_train = dftrain.pop('survived')
 y_eval = dfeval.pop('survived')
 
+"""
+==================================
+Get a pictuer of the data you have
+==================================
+"""
 #dftrain.age.hist(bins=20)
 #dftrain.sex.value_counts().plot(kind='barh')
 #dftrain['class'].value_counts().plot(kind='barh')
@@ -66,4 +71,36 @@ def make_input_fn(data_df, label_df, num_epochs=10, shuffle=True, batch_size=32)
 
 train_input_fn = make_input_fn(dftrain, y_train)  # here we will call the input_function that was returned to us to get a dataset object we can feed to the model
 eval_input_fn = make_input_fn(dfeval, y_eval, num_epochs=1, shuffle=False)
+
+linear_est = tf.estimator.LinearClassifier(feature_columns=feature_columns)
+# We create a linear estimtor by passing the feature columns we created earlier
+
+"""
+====================================
+TRAINING THE linear regression MODEL
+====================================
+"""
+
+linear_est.train(train_input_fn)  # train
+result = linear_est.evaluate(eval_input_fn)  # get model metrics/stats by testing on tetsing data
+
+clear_output()  # clears consoke output
+print(result['accuracy'])  # the result variable is simply a dict of stats about our model
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
